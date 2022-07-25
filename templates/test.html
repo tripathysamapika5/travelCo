@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Expedia Group - User preference</title>
+    <!-- Bootstrap CSS, JS, and jQuery -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+  <body style="background: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3433&q=80'); -webkit-background-size: cover;">
+
+<nav class="navbar navbar-light" style="background-color: #7BD7FC;">
+  <!-- Navbar content -->
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="https://www.expedia.com"><img id="logo" src="https://newsroom.expedia.com/file.php/177407/EXP_US_Basic_lrg_alt_RGB.jpg?thumbnail=modal" style = "height: 40px;width: auto;"></a>
+  </li>
+</ul>
+</nav>
+
+<br><br>
+      <div class="text-center">
+
+        <div class="topnav-centered">
+          <h1 style="color: white;">Hi {{username}}!</h1>
+          <h1 style="color: white;">Help Us Understand Your Preferences!</h1>
+          <hr style="width: 100%; color: red; height: 1px; background-color:red;" />
+        </div>
+      </div>
+
+
+<div class="container">
+
+    <center>
+    <div style="border: 1px dotted black;background-color: #F0F8FF ;width: 35rem;class="col-xs-20 board";">
+
+    <form  style="width: 30rem;text-align: left;">
+     <br>
+
+
+
+    <fieldset class="form-group">
+        <div class="row">
+        1) Type of Your trip ?
+
+        <div class="col-sm-10">
+
+                <div >
+
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="triptype" id="triptype1" value="business">
+                <label class="form-check-label" for="triptype1" >
+                    Business
+                </label>
+                </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="triptype" id="triptype2" value="leisure">
+                <label class="form-check-label" for="triptype2">
+                    Leisure
+                </label>
+                </div>
+    </div>
+    </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <div class="row">
+2) What excites you more ?<br>
+
+      <div class="col-sm-10">
+                 <div >
+
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype1" value="adventure">
+                <label class="form-check-label" for="ineresttype1" >
+                    Adventure
+                </label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype2" value="nature">
+                <label class="form-check-label" for="ineresttype2">
+                    Nature
+                </label>
+                </div>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype3" value="culture">
+                <label class="form-check-label" for="ineresttype3">
+                    Culture
+                </label>
+                </div>
+
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype4" value="food">
+                <label class="form-check-label" for="ineresttype4">
+                    Food
+                </label>
+                </div>
+
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype5" value="nightlife">
+                <label class="form-check-label" for="ineresttype5">
+                    Nightlife
+                </label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype6" value="shopping">
+                <label class="form-check-label" for="ineresttype6">
+                    Shopping
+                </label>
+                </div>
+                  <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="ineresttype" id="ineresttype7" value="family friendly">
+                <label class="form-check-label" for="ineresttype6">
+                    Family Friendly
+                </label>
+                </div>
+
+        </div>
+        </div>
+  </fieldset>
+
+    <fieldset class="form-group">
+        <div class="row">
+        3) Choice of Food ?
+
+        <div class="col-sm-10">
+
+                <div >
+
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="foodchoice" id="foodchoice1" value="veg">
+                <label class="form-check-label" for="foodchoice1" >
+                    Veg
+                </label>
+                </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="foodchoice" id="foodchoice2" value="non-veg">
+                <label class="form-check-label" for="foodchoice2">
+                    Non Veg
+                </label>
+                </div>
+    </div>
+    </div>
+    </div>
+  </fieldset>
+
+    <fieldset class="form-group">
+        <div class="row">
+        4) Cuisine Speciality
+        <div class="col-sm-10">
+    <input type="text" class="form-control" id="cusinespeciality" name = "cusinespeciality" >
+
+    </div>
+    </div>
+  </fieldset>
+
+
+              <center><div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+             </div></center>
+              <br>
+        </form>
+</div>
+
+
+
+
+
+  </body>
+</html>

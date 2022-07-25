@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TravelCo - Home</title>
+    <!-- Bootstrap CSS, JS, and jQuery -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body style="background-color:White; -webkit-background-size: cover;">
+
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav">
+      <li><a href={{url_for('route_user_home')}}><img id="logo1" src="static/travelco_logo_2.png" style = "height: 80px;width: auto;"></a></li>
+
+    </ul>
+
+    <ul class="nav navbar-right">
+      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 80px;width: auto;"></a></li>
+
+    </ul>
+
+    <ul class="nav navbar-right">
+
+        <li><a href={{ url_for('route_user_home_page', emailId = emailId) }}><span class="glyphicon glyphicon-home" ></span> Home </a></li>
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user" ></span> {{name}}
+                </button>
+                      <ul class="dropdown-menu">
+                        <li><a href={{url_for('route_search_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-search" ></span> Search activities </a></li>
+                         <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Post activities </a></li>
+                         <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own activities </a></li>
+                       </ul>
+        </div>
+
+    </ul>
+
+
+  </div>
+</nav>
+
+<div class="container">
+     <center>
+                 <h1 style="color: green;">{{ successMessage }}</h1>
+
+    <div style="border: 1px dotted black;background-color: #F0F8FF ;width: 80rem;">
+
+
+  <h2>Post a activity...</h2>
+  <form class="form-horizontal" action={{url_for('route_post_activity', emailId = emailId, name = name)}}>
+
+      <input type="hidden" class="form-control" name= "name" id="name" value = {{ name }}>
+      <input type="hidden" class="form-control" name= "emailId" id="emailId" value = {{ emailId }}>
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Trip title</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name= "tripName" id="tripName" placeholder="Enter trip title" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="fromLocation">From <span class="glyphicon glyphicon-map-marker" ></span>  </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name= "fromLocation" id="fromLocation" placeholder="Enter from location" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="toLocation">To <span class="glyphicon glyphicon-map-marker" ></span>  </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name= "toLocation" id="toLocation" placeholder="Enter to location" required >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="tripStartDate">Start date <span class="glyphicon glyphicon-calendar" ></span>  </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name= "tripStartDate" id="tripStartDate" placeholder="Enter trip start date" required>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="tripEndDate">End date <span class="glyphicon glyphicon-calendar" ></span>  </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name= "tripEndDate" id="tripEndDate" placeholder="Enter trip end date" required>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+       <div class="form-check"   align = "left">
+            <strong>&emsp; &emsp; &emsp;Planned activities</strong><br><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity1" name="plannedActivity" value="shopping">
+            <label for="plannedActivity1"> shopping</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity2" name="plannedActivity" value="food, drink & nightlife">
+            <label for="plannedActivity2"> food, drink & nightlife</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity3" name="plannedActivity" value="gallery and museum">
+            <label for="plannedActivity3"> gallery and museum</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity4" name="plannedActivity" value="sightseeing & city tours">
+            <label for="plannedActivity4"> sightseeing & city tours</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity5" name="plannedActivity" value="history & culture">
+            <label for="plannedActivity5"> history & culture</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity6" name="plannedActivity" value="theme park and water activities">
+            <label for="plannedActivity6"> theme park and water activities</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity7" name="plannedActivity" value="wildlife & nature">
+            <label for="plannedActivity7"> wildlife & nature</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity8" name="plannedActivity" value="cruises or boat rides">
+            <label for="plannedActivity8"> cruises or boat rides</label><br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity9" name="plannedActivity" value="adventure">
+            <label for="plannedActivity9"> adventure</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity10" name="plannedActivity" value="spa & wellness">
+            <label for="plannedActivity10"> spa & wellness</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity11" name="plannedActivity" value="hiking & camping">
+            <label for="plannedActivity11"> hiking & camping</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity12" name="plannedActivity" value="movies, shows or concerts">
+            <label for="plannedActivity12"> movies, shows or concerts</label><br>
+
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity13" name="plannedActivity" value="road trip">
+            <label for="plannedActivity13"> road trip</label><br>
+
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-8">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form>
+     </div>
+         </center>
+
+</div>
+
+
+  </body>
+</html>

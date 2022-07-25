@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TravelCo - Home</title>
+    <!-- Bootstrap CSS, JS, and jQuery -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  <body style="background-color:White; -webkit-background-size: cover;">
+
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav">
+      <li><a href={{url_for('route_user_home')}}><img id="logo1" src="static/travelco_logo_2.png" style = "height: 80px;width: auto;"></a></li>
+
+    </ul>
+
+    <ul class="nav navbar-right">
+      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 80px;width: auto;"></a></li>
+
+    </ul>
+
+    <ul class="nav navbar-right">
+        <li><a href={{ url_for('route_user_home_page', emailId = emailId) }}><span class="glyphicon glyphicon-home" ></span> Home </a></li>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user" ></span> {{name}}
+                </button>
+                      <ul class="dropdown-menu">
+                        <li><a href={{url_for('route_search_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-search" ></span> Search activities </a></li>
+                        <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Post activities </a></li>
+                         <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own activities </a></li>
+                      </ul>
+        </div>
+
+    </ul>
+
+
+  </div>
+</nav>
+
+ <div class="container">
+  <div class="container">
+
+  <div class="alert alert-info">
+      <strong><h3>All Upcoming Trips !!!</h3></strong>
+  </div>
+
+
+    {% for activity in activities %}
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{ activity.get('name') }}</h3>
+              </div>
+              <div class="panel-body">
+                  <p>
+
+                  <ul class="nav nav-pills">
+                  <li role="presentation"><a href="#">From <span class="glyphicon glyphicon-map-marker" ></span> : {{ activity.get('fromLocation') }}</a></li>
+                  <li role="presentation"><a href="#">To <span class="glyphicon glyphicon-map-marker" ></span> : {{ activity.get('destinationLocation') }}</a></li>
+                  </ul>
+
+
+                  <ul class="nav nav-pills">
+                  <li role="presentation"><a href="#">Trip Start Date <span class="glyphicon glyphicon-calendar" ></span> : {{ activity.get('tripStartDate') }}</a></li>
+                  <li role="presentation"><a href="#">Trip End Date <span class="glyphicon glyphicon-calendar" ></span> : {{ activity.get('tripEndDate') }}</a></li>
+                  </ul>
+
+                <ul class="nav nav-pills nav-stacked">
+                  <li role="presentation"><a href="#">Members  <span class="glyphicon glyphicon-user" ></span> : {{ activity.get('groupSize') }}</a></li>
+                </ul>
+
+
+                <ul class="nav nav-pills">
+                  <li role="presentation"><a href="#">Activities </a></li>
+                </ul>
+                    <div class="container">
+                    <ol class="nav nav-pills nav-stacked">
+                         {% for plannedActivity in activity.get('activities') %}
+                                <li role="presentation"><a href="#"> <span class="glyphicon glyphicon-tag" ></span> {{ plannedActivity}} </a></li>
+                           {% endfor %}
+                    </ol>
+                    </div>
+
+              {% if activity.get('message') != ""  %}
+            <ul class="nav nav-pills" >
+                  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-info-sign" ></span>&nbsp;&nbsp;<strong style="color:orange;">{{ activity.get('message') }}</strong> </a></li>
+                </ul>
+
+            {% endif %}
+
+              {% if activity.get('isNonMember')  %}
+              <p align="right">
+                     <a href={{ url_for('route_join_group',emailId = emailId,postId =  activity.get('postId')) }}><button type="button" class="btn btn-primary active">Join Group</button></a>
+              </p>
+              {% endif %}
+
+              {% if activity.get('isPrimary')  %}
+              <div class="alert alert-success">
+                <strong>You are the primary member of this group!</strong>
+             </div>
+              {% endif %}
+
+
+              {% if activity.get('isMember')  %}
+              <div class="alert alert-success">
+                <strong>You have joined this group!</strong>
+             </div>
+              {% endif %}
+
+
+            </p>
+              </div>
+            </div>
+
+    {% endfor %}
+
+ </div>
+
+
+
+
+  <!-- List group -->
+
+</div>
+
+
+  </body>
+</html>

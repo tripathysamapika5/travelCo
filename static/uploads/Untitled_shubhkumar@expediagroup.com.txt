@@ -1,0 +1,610 @@
+{
+  "id": "change_management_testcase3_1.0",
+  "supersource_name": "change_management_testcase3",
+  "attributes_template": {
+    "supersource_name": "change_management_testcase3",
+    "attributes": [
+      {
+        "attribute_name": "begin_use_date",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "begin_use_date"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "DATE",
+        "description": null
+      },
+      {
+        "attribute_name": "end_use_date",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "end_use_date"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "DATE",
+        "description": null
+      },
+      {
+        "attribute_name": "CALC_duration",
+        "attribute_alias": null,
+        "derivation_type": "derived",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "begin_use_date",
+              "end_use_date"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": "DATEDIFF(cmrce.end_use_date , cmrce.begin_use_date)",
+        "join_info": null,
+        "data_type": "INTEGER",
+        "description": "duration between trip begin date and trip end date"
+      },
+      {
+        "attribute_name": "booking_event_date_utc",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "cmrce.booking_event_date_utc"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "DATE",
+        "description": null
+      },
+      {
+        "attribute_name": "booking_item_id",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "booking_item_id"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "booking_record_locator",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "booking_record_locator"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "travel_product_id",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "travel_product_id"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "INTEGER",
+        "description": null
+      },
+      {
+        "attribute_name": "CALC_lob_subunit_cnt",
+        "attribute_alias": null,
+        "derivation_type": "derived",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "rental_day_count",
+              "room_night_count",
+              "line_of_business",
+              "ticket_count"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": "case  when cmrce.line_of_business = 'Car' then cmrce.rental_day_count when cmrce.line_of_business = 'Air' then  cmrce.ticket_count when cmrce.line_of_business = 'Lodging' then  cmrce.room_night_count when cmrce.line_of_business = 'Insurance' then 1 END",
+        "join_info": null,
+        "data_type": "INTEGER",
+        "description": "lob_subunit_cnt"
+      },
+      {
+        "attribute_name": "package_indicator",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "package_indicator"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "management_unit_code",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "management_unit_code"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "country_code",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_country",
+            "table_alias": "country_dim",
+            "values": [
+              "country_code"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": {
+          "join_to_col": "Jurisdiction_code",
+          "join_to_table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+          "join_to_table_alias": "cmrce",
+          "join_type": "left"
+        },
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "country_name",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_country",
+            "table_alias": "country_dim",
+            "values": [
+              "country_name"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "short_country_code",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_country",
+            "table_alias": "country_dim",
+            "values": [
+              "short_country_code"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "actual_date",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_date_dimension",
+            "table_alias": "date_dim",
+            "values": [
+              "actual_date"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": {
+          "join_to_col": "booking_event_date_utc",
+          "join_to_table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+          "join_to_table_alias": "cmrce",
+          "join_type": "inner"
+        },
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "wk_nbr_in_year",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_date_dimension",
+            "table_alias": "date_dim",
+            "values": [
+              "wk_nbr_in_year"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "month_nbr_in_year",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_date_dimension",
+            "table_alias": "date_dim",
+            "values": [
+              "month_nbr_in_year"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "qtr_nbr_in_year",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_date_dimension",
+            "table_alias": "date_dim",
+            "values": [
+              "qtr_nbr_in_year"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "year_nbr",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.eg_date_dimension",
+            "table_alias": "date_dim",
+            "values": [
+              "year_nbr"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "mgmt_unit_code",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.EPS_MGMT_UNIT_DIM",
+            "table_alias": "mgmt_unit_dim",
+            "values": [
+              "mgmt_unit_dim.mgmt_unit_code"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": {
+          "join_to_col": "management_unit_code",
+          "join_to_table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+          "join_to_table_alias": "cmrce",
+          "join_type": "left"
+        },
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "mgmt_unit_lvl_8_name",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.EPS_MGMT_UNIT_DIM",
+            "table_alias": "mgmt_unit_dim",
+            "values": [
+              "mgmt_unit_lvl_8_name"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "mgmt_unit_lvl_4_name",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.EPS_MGMT_UNIT_DIM",
+            "table_alias": "mgmt_unit_dim",
+            "values": [
+              "mgmt_unit_lvl_4_name"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "EPS_DIVISION",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.EPS_MGMT_UNIT_DIM",
+            "table_alias": "mgmt_unit_dim",
+            "values": [
+              "EPS_DIVISION"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": null
+      },
+      {
+        "attribute_name": "CALC_EPS_GBV_OWNER",
+        "attribute_alias": null,
+        "derivation_type": "derived",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.EPS_MGMT_UNIT_DIM",
+            "table_alias": "mgmt_unit_dim",
+            "values": [
+              "mgmt_unit_lvl_8_name",
+              "mgmt_unit_lvl_4_name"
+            ],
+            "type": "dim"
+          },
+          {
+            "table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+            "table_alias": "cmrce",
+            "values": [
+              "package_indicator"
+            ],
+            "type": "fact"
+          }
+        ],
+        "calculation": "CASE WHEN cmrce.package_indicator = 'Standalone' and mgmt_unit_dim.mgmt_unit_lvl_8_name = 'Amex' THEN  'AMEX' ELSE mgmt_unit_dim.mgmt_unit_lvl_4_name END",
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": "EPS_GBV_OWNER"
+      },
+      {
+        "attribute_name": "CALC_EXPE_PROPERTY_ID",
+        "attribute_alias": null,
+        "derivation_type": "derived",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.lodging_profile_eg",
+            "table_alias": "lodging_dim",
+            "values": [
+              "eg_property_id",
+              "vrbo_property_id"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": "coalesce(lodging_dim.vrbo_property_id, lodging_dim.eg_property_id)",
+        "join_info": {
+          "join_to_col": "property_id",
+          "join_to_table_name": "retail_performance.eg_commerce_bookingitem_event_v1",
+          "join_to_table_alias": "cmrce",
+          "join_type": "left"
+        },
+        "data_type": "VARCHAR",
+        "description": "EXPE_PROPERTY_ID"
+      },
+      {
+        "attribute_name": "property_name",
+        "attribute_alias": null,
+        "derivation_type": "straight_pull",
+        "filter_expression": null,
+        "source": [
+          {
+            "table_name": "retail_performance.lodging_profile_eg",
+            "table_alias": "lodging_dim",
+            "values": [
+              "property_name"
+            ],
+            "type": "dimension"
+          }
+        ],
+        "calculation": null,
+        "join_info": null,
+        "data_type": "VARCHAR",
+        "description": "property_name"
+      },
+		{
+		"attribute_name": "airln_carrier_name",
+		"attribute_alias": null,
+		"derivation_type": "straight_pull",
+		"filter_expression": null,
+		"source": [
+			{
+				"table_name": "retail_performance.airln_carrier_dim",
+				"table_alias": "airln_carrier_dim",
+				"type": "dimension",
+				"values": [
+					"airln_carrier_name"
+				]
+			}
+		],
+		"calculation": null,
+		"join_info": null,
+		"data_type": null,
+		"description": "airln_carrier_name"
+	},
+    {
+    "attribute_name": "airln_carrier_code",
+    "attribute_alias": null,
+    "derivation_type": "straight_pull",
+    "filter_expression": null,
+    "source": [
+        {
+            "table_name": "retail_performance.airln_carrier_dim",
+            "table_alias": "airln_carrier_dim",
+            "type": "dimension",
+            "values": [
+                "airln_carrier_code"
+            ]
+        }
+    ],
+    "calculation": null,
+    "join_info": {
+        "join_to_table_alias": "cmrce",
+        "join_to_table_name": "commerce.eg_commerce_bookingitem_event_v1",
+        "join_to_col": "ticketed_carrier_code",
+        "join_type": "left"
+    },
+    "data_type": null,
+    "description": "airln_carrier_code"
+	}
+    ],
+    "process_query": "WITH LODGING_DIM AS\n(   SELECT COALESCE(LODGING_DIM.VRBO_PROPERTY_ID, LODGING_DIM.EG_PROPERTY_ID) CALC_EXPE_PROPERTY_ID\n          , PROPERTY_NAME PROPERTY_NAME\n        FROM RETAIL_PERFORMANCE.LODGING_PROFILE_EG LODGING_DIM), DATE_DIM AS\n(   SELECT WK_NBR_IN_YEAR WK_NBR_IN_YEAR\n          , YEAR_NBR YEAR_NBR\n          , QTR_NBR_IN_YEAR QTR_NBR_IN_YEAR\n          , ACTUAL_DATE ACTUAL_DATE\n          , MONTH_NBR_IN_YEAR MONTH_NBR_IN_YEAR\n        FROM RETAIL_PERFORMANCE.EG_DATE_DIMENSION DATE_DIM), MGMT_UNIT_DIM AS\n(   SELECT MGMT_UNIT_LVL_4_NAME MGMT_UNIT_LVL_4_NAME\n          , EPS_DIVISION EPS_DIVISION\n          , MGMT_UNIT_CODE MGMT_UNIT_CODE\n          , MGMT_UNIT_LVL_8_NAME MGMT_UNIT_LVL_8_NAME\n        FROM RETAIL_PERFORMANCE.EPS_MGMT_UNIT_DIM MGMT_UNIT_DIM), CMRCE AS\n(   SELECT (CASE\n                    WHEN (CMRCE.LINE_OF_BUSINESS = 'Car')\n                    THEN CMRCE.RENTAL_DAY_COUNT\n                    WHEN (CMRCE.LINE_OF_BUSINESS = 'Air')\n                    THEN CMRCE.TICKET_COUNT\n                    WHEN (CMRCE.LINE_OF_BUSINESS = 'Lodging')\n                    THEN CMRCE.ROOM_NIGHT_COUNT\n                    WHEN (CMRCE.LINE_OF_BUSINESS = 'Insurance')\n                    THEN 1\n                    ELSE NULL\n                    END) CALC_LOB_SUBUNIT_CNT\n          , TRAVEL_PRODUCT_ID TRAVEL_PRODUCT_ID\n          , LINE_OF_BUSINESS LINE_OF_BUSINESS\n          , END_USE_DATE END_USE_DATE\n          , PROPERTY_ID PROPERTY_ID\n          , BEGIN_USE_DATE BEGIN_USE_DATE\n          , JURISDICTION_CODE JURISDICTION_CODE\n          , DATEDIFF(CMRCE.END_USE_DATE, CMRCE.BEGIN_USE_DATE) CALC_DURATION\n          , MANAGEMENT_UNIT_CODE MANAGEMENT_UNIT_CODE\n          , BOOKING_EVENT_DATE_UTC BOOKING_EVENT_DATE_UTC\n          , BOOKING_RECORD_LOCATOR BOOKING_RECORD_LOCATOR\n          , PACKAGE_INDICATOR PACKAGE_INDICATOR\n          , BOOKING_ITEM_ID BOOKING_ITEM_ID\n        FROM RETAIL_PERFORMANCE.EG_COMMERCE_BOOKINGITEM_EVENT_V1 CMRCE), COUNTRY_DIM AS\n(   SELECT COUNTRY_CODE COUNTRY_CODE\n          , SHORT_COUNTRY_CODE SHORT_COUNTRY_CODE\n          , COUNTRY_NAME COUNTRY_NAME\n        FROM RETAIL_PERFORMANCE.EG_COUNTRY COUNTRY_DIM)\n(   SELECT LODGING_DIM.PROPERTY_NAME\n          , DATE_DIM.WK_NBR_IN_YEAR\n          , DATE_DIM.YEAR_NBR\n          , DATE_DIM.QTR_NBR_IN_YEAR\n          , DATE_DIM.MONTH_NBR_IN_YEAR\n          , MGMT_UNIT_DIM.MGMT_UNIT_LVL_4_NAME\n          , MGMT_UNIT_DIM.EPS_DIVISION\n          , MGMT_UNIT_DIM.MGMT_UNIT_LVL_8_NAME\n          , CMRCE.CALC_LOB_SUBUNIT_CNT\n          , CMRCE.TRAVEL_PRODUCT_ID\n          , CMRCE.END_USE_DATE\n          , CMRCE.PROPERTY_ID\n          , CMRCE.BEGIN_USE_DATE\n          , CMRCE.JURISDICTION_CODE\n          , CMRCE.CALC_DURATION\n          , CMRCE.MANAGEMENT_UNIT_CODE\n          , CMRCE.BOOKING_RECORD_LOCATOR\n          , CMRCE.PACKAGE_INDICATOR\n          , CMRCE.BOOKING_ITEM_ID\n          , COUNTRY_DIM.SHORT_COUNTRY_CODE\n          , COUNTRY_DIM.COUNTRY_NAME\n          , (CASE\n                    WHEN ((CMRCE.PACKAGE_INDICATOR = 'Standalone') AND (MGMT_UNIT_DIM.MGMT_UNIT_LVL_8_NAME = 'Amex'))\n                    THEN 'AMEX'\n                    ELSE MGMT_UNIT_DIM.MGMT_UNIT_LVL_4_NAME\n                    END) CALC_EPS_GBV_OWNER\n          , CMRCE.LINE_OF_BUSINESS\n          , CMRCE.BOOKING_EVENT_DATE_UTC\n        FROM CMRCE\n            LEFT JOIN LODGING_DIM ON (LODGING_DIM.CALC_EXPE_PROPERTY_ID = CMRCE.PROPERTY_ID)\n            INNER JOIN DATE_DIM ON (DATE_DIM.ACTUAL_DATE = CMRCE.BOOKING_EVENT_DATE_UTC)\n            LEFT JOIN MGMT_UNIT_DIM ON (MGMT_UNIT_DIM.MGMT_UNIT_CODE = CMRCE.MANAGEMENT_UNIT_CODE)\n            LEFT JOIN COUNTRY_DIM ON (COUNTRY_DIM.COUNTRY_CODE = CMRCE.JURISDICTION_CODE)\n        WHERE (CMRCE.BOOKING_EVENT_DATE_UTC = '2022-07-13'))",
+    "create_date": "2022-07-20",
+    "update_date": "2022-07-20 16:52:41",
+    "update_run_id": "job_id",
+    "updated_by": "process_name",
+    "partition_schema": [
+      {
+        "column_name": "line_of_business",
+        "data_type": "string",
+        "serial_number": "0",
+        "timestamp_indicator": null
+      },
+      {
+        "column_name": "booking_event_date_utc",
+        "data_type": "date",
+        "serial_number": "1",
+        "timestamp_indicator": "DATE"
+      }
+    ],
+    "version": "1.0"
+  },
+  "state": "ACTIVE",
+  "version": "1.0"
+}
