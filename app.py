@@ -1,5 +1,6 @@
 import math
 
+from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask import  flash
@@ -19,6 +20,7 @@ from configs import db;
 app = AppFactory.getApp(__name__)
 db.init_app(app)
 modelService.createDatabase()
+socketio = SocketIO(app)
 #modelService.initialiseUsers()
 #modelService.initialisePosts()
 
@@ -336,6 +338,16 @@ def getScoreFromaAttachments(primaryEmail, newAttachments):
             score += 1
     score += len(attachmentTypes)
     return score
+
+
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=messageReceived)
 
 
 if __name__ == '__main__':
