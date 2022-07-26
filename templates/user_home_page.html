@@ -30,16 +30,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none;
   position: fixed;
   bottom: 0;
-  right: 30px;
-  border: 3px solid #f1f1f1;
+  right: 20px;
+  border: 1px solid #f1f1f1;
   z-index: 9;
-  width: 500px
+  width: 400px
 }
 
 .message_holder{
     height : 100%;
-    height : 200px;
-    max-height: 200px;
+    height : 150px;
+    max-height: 150px;
     overflow-y: scroll;
     position: relative;
 
@@ -47,7 +47,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 500px;
+  max-width: 400px;
   padding: 10px;
   background-color: white;
   min-height: 50px;
@@ -107,45 +107,38 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <div class="container-fluid">
 
     <ul class="nav navbar-nav">
-      <li><a href={{url_for('route_user_home')}}><img id="logo1" src="static/travelco_logo_2.png" style = "height: 80px;width: auto;"></a></li>
+      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 40px;width: auto"></a></li>
+
 
     </ul>
 
     <ul class="nav navbar-right">
-      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 80px;width: auto;"></a></li>
-
+        <a href={{ url_for('route_user_home_page', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
+        <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-envelope"></i>
+        <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-top:20px" class="glyphicon glyphicon-bell"></i>
+        <i data-toggle="dropdown" style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-right:40px" class="glyphicon glyphicon-user"></i>
+        <ul class="dropdown-menu">
+            <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
+            <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own trips </a></li>
+        </ul>
     </ul>
-
-    <ul class="nav navbar-right">
-        <li><a href={{ url_for('route_user_home_page', emailId = emailId) }}><span class="glyphicon glyphicon-home" ></span> Home </a></li>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user" ></span> {{name}}
-                </button>
-                      <ul class="dropdown-menu">
-                        <li><a href={{url_for('route_search_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-search" ></span> Search activities </a></li>
-                        <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Post activities </a></li>
-                         <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own activities </a></li>
-                      </ul>
-        </div>
-
-    </ul>
-
 
   </div>
 </nav>
 
- <div class="container">
-  <div class="container">
+ <div class="container" >
+  <div class="container" style ="width : 800px;">
+
 
   <div class="alert alert-info">
-      <strong><h3>All Upcoming Trips !!!</h3></strong>
+      <strong>All Upcoming Trips !!!</strong>
   </div>
 
 
     {% for activity in activities %}
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title">{{ activity.get('name') }}</h3>
+                {{ activity.get('name') }}
               </div>
               <div class="panel-body">
                   <p>
@@ -169,8 +162,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <ul class="nav nav-pills">
                   <li role="presentation"><a href="#">Activities </a></li>
                 </ul>
-                    <div class="container">
-                    <ol class="nav nav-pills nav-stacked">
+                    <div class="container" style ="width : 800px;">
+                    <ol class="nav nav-pills" >
                          {% for plannedActivity in activity.get('activities') %}
                                 <li role="presentation"><a href="#"> <span class="glyphicon glyphicon-tag" ></span> {{ plannedActivity}} </a></li>
                            {% endfor %}
@@ -216,7 +209,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               <input type="hidden" class="username" placeholder="User Name" value={{ name }}>
 
                               <label for="msg"><b>Message</b></label>
-                                <textarea class="form-control message"  name="message"  id="comment" placeholder="Type message.." id="msg" required></textarea>
+                                <textarea class="form-control message"  name="message"  id="comment" placeholder="Type message.." id="msg"required></textarea>
 
 
                             <button type="submit" class="btn">Send</button>
@@ -298,11 +291,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                               socket.emit( 'my event', {
                               user_name: 'Chatbot',
-                                  message : '<p>Hello Everyone! <br>You can book your itineraries by clicking on below links ' +
-                                      '<br><a href="https://www.expedia.com/Hotels">Hotels</a> ' +
-                                      '<a href="https://www.expedia.com/Flights">Flights</a> ' +
-                                      '<a href="https://www.expedia.com/Cars">Cars</a> ' +
-                                      '<a href="https://www.expedia.com/Activities">Activities</a> ' +
+                                  message : '<p>Hello Everyone! <br>Links to book tickets: ' +
+                                      '<a href="https://www.expedia.com/Hotels">Hotel</a> ' +
+                                      '<a href="https://www.expedia.com/Flights">Flight</a> ' +
+                                      '<a href="https://www.expedia.com/Cars">Car</a> ' +
+                                      '<a href="https://www.expedia.com/Activities">Activity</a> ' +
                                       '</p>'
                               } )
 

@@ -3,7 +3,7 @@ import math
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask import  flash
+from flask import flash
 
 from configs import AppFactory
 from models import modelService, Users, Posts
@@ -25,29 +25,27 @@ socketio = SocketIO(app)
 #modelService.initialisePosts()
 
 
-
 ################ Endpoints #################
 
 @app.route('/')
 def route_user_home():  # put application's code here
     return render_template('home_page.html')
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def route_login():
-
     emailId = request.args.get("email")
     password = request.args.get("pwd")
 
     if emailId is not None:
         actualPassword = db.session.query(Users).filter_by(email=emailId)[0].__dict__.get('password')
 
-        if(actualPassword == password):
-            return redirect(url_for('route_user_home_page',emailId = emailId))
+        if (actualPassword == password):
+            return redirect(url_for('route_user_home_page', emailId=emailId))
         else:
-            return render_template('login.html', errorMessage = "Login Failed !!!")
+            return render_template('login.html', errorMessage="Login Failed !!!")
 
     return render_template('login.html')
-
 
 
 @app.route('/user-home-page', methods=['GET', 'POST'])
@@ -67,9 +65,8 @@ def route_user_home_page():
         newActivity['groupSize'] = len(newActivity.get('memberEmails')) + 1
         newActivity['isPrimary'] = newActivity.get('primaryEmail') == emailId
         newActivity['isMember'] = emailId in newActivity['memberEmails']
-        newActivity['isNonMember'] = newActivity['isPrimary'] == False  and  newActivity['isMember'] == False
+        newActivity['isNonMember'] = newActivity['isPrimary'] == False and newActivity['isMember'] == False
         newActivity['attachments'] = json.loads(newActivity.get('attachments'))
-
 
         newAttachments = newActivity.get('attachments')
 
@@ -79,8 +76,8 @@ def route_user_home_page():
 
         newActivities.append(newActivity)
 
+    return render_template('user_home_page.html', name=name, activities=newActivities, emailId=emailId)
 
-    return render_template('user_home_page.html', name = name, activities = newActivities, emailId = emailId  )
 
 @app.route('/join-group', methods=['GET', 'POST'])
 def route_join_group():
@@ -95,7 +92,6 @@ def route_join_group():
     post.memberEmails = json.dumps(list(set(newMemberEmails)))
     db.session.commit()
     return redirect(request.referrer)
-
 
 
 @app.route('/user-activities', methods=['GET', 'POST'])
@@ -115,28 +111,25 @@ def route_user_activities():
         newActivity['groupSize'] = len(newActivity.get('memberEmails')) + 1
         newActivity['isPrimary'] = newActivity.get('primaryEmail') == emailId
         newActivity['isMember'] = emailId in newActivity['memberEmails']
-        newActivity['isNonMember'] = newActivity['isPrimary'] == False  and  newActivity['isMember'] == False
+        newActivity['isNonMember'] = newActivity['isPrimary'] == False and newActivity['isMember'] == False
 
         newActivity['attachments'] = json.loads(newActivity.get('attachments'))
         newAttachments = newActivity.get('attachments')
         message = getInsight(newActivity.get('primaryEmail'), newAttachments)
         newActivity['message'] = message
 
-
-
         if newActivity['isPrimary'] or newActivity['isMember']:
             newActivities.append(newActivity)
 
-    return render_template('user_activities.html', name = name, activities = newActivities, emailId = emailId  )
+    return render_template('user_activities.html', name=name, activities=newActivities, emailId=emailId)
 
 
 @app.route('/post-activity', methods=['GET', 'POST'])
 def route_post_activity():
-
     emailId = request.args.get('emailId')
     personName = db.session.query(Users).filter_by(email=emailId)[0].__dict__.get('name')
 
-    if(request.args.get('tripName') is not None):
+    if (request.args.get('tripName') is not None):
         tripName = request.args.get('tripName')
         tripStartDate = request.args.get('tripStartDate')
         tripEndDate = request.args.get('tripEndDate')
@@ -144,21 +137,21 @@ def route_post_activity():
         toLocation = request.args.get('toLocation')
         activities = json.dumps(request.args.getlist('plannedActivity'))
 
-
-        db.session.add( Posts( tripName,activities, tripStartDate, tripEndDate, fromLocation, toLocation, emailId));
+        db.session.add(Posts(tripName, activities, tripStartDate, tripEndDate, fromLocation, toLocation, emailId));
         db.session.commit();
 
-        return render_template('post_activity.html', emailId=emailId, name=personName, successMessage = "Activity posted successfully!")
+        return render_template('post_activity.html', emailId=emailId, name=personName,
+                               successMessage="Activity posted successfully!")
 
-    return render_template('post_activity.html', emailId = emailId, name = personName )
+    return render_template('post_activity.html', emailId=emailId, name=personName)
+
 
 @app.route('/search-activity', methods=['GET', 'POST'])
 def route_search_activity():
-
     emailId = request.args.get('emailId')
     personName = db.session.query(Users).filter_by(email=emailId)[0].__dict__.get('name')
 
-    if(request.args.get('toLocation') is not None):
+    if (request.args.get('toLocation') is not None):
         tripStartDate = request.args.get('tripStartDate')
         tripEndDate = request.args.get('tripEndDate')
         fromLocation = request.args.get('fromLocation')
@@ -177,7 +170,7 @@ def route_search_activity():
             newPost['groupSize'] = len(newPost.get('memberEmails')) + 1
             newPost['isPrimary'] = newPost.get('primaryEmail') == emailId
             newPost['isMember'] = emailId in newPost['memberEmails']
-            newPost['isNonMember'] = newPost['isPrimary'] == False  and  newPost['isMember'] == False
+            newPost['isNonMember'] = newPost['isPrimary'] == False and newPost['isMember'] == False
             newPost['attachments'] = json.loads(newPost.get('attachments'))
 
             newAttachments = newPost.get('attachments')
@@ -190,7 +183,8 @@ def route_search_activity():
 
             score = getScoreFromaAttachments(newPost.get('primaryEmail'), newAttachments)
 
-            delta = datetime.strptime(tripStartDate,'%Y-%m-%d').date() - datetime.strptime(newPost.get('tripStartDate'),'%Y-%m-%d').date()
+            delta = datetime.strptime(tripStartDate, '%Y-%m-%d').date() - datetime.strptime(
+                newPost.get('tripStartDate'), '%Y-%m-%d').date()
             if abs(delta.days) <= 15:
                 score += 1
 
@@ -207,12 +201,13 @@ def route_search_activity():
                 if activity in newPost['activities']:
                     score += 1
             if toLocation == newPost.get('destinationLocation') and score > 0:
-                newPost['score'] = round(score*5/totalScore,1)
+                newPost['score'] = round(score * 5 / totalScore, 1)
                 newPosts.append(newPost)
         finalPosts = sorted(newPosts, key=lambda x: x['score'], reverse=True)
-        return render_template('search_activity_success.html', emailId=emailId, name=personName, activities = finalPosts )
+        return render_template('search_activity_success.html', emailId=emailId, name=personName, activities=finalPosts)
 
-    return render_template('search_activity.html', emailId = emailId, name = personName)
+    return render_template('search_activity.html', emailId=emailId, name=personName)
+
 
 @app.route('/view-post', methods=['GET', 'POST'])
 def route_view_post():
@@ -232,9 +227,10 @@ def route_view_post():
     post['attachments'] = json.loads(post.get('attachments'))
 
     if post['isNonMember']:
-        return render_template('view_post.html', emailId = emailId, name = personName, activity ={})
+        return render_template('view_post.html', emailId=emailId, name=personName, activity={})
     else:
-        return render_template('view_post.html', emailId = emailId, name=personName, activity=post)
+        return render_template('view_post.html', emailId=emailId, name=personName, activity=post)
+
 
 @app.route('/upload-itinerary', methods=['POST'])
 def route_upload_itinerary():
@@ -246,13 +242,13 @@ def route_upload_itinerary():
     ticketNo = request.form.get('ticketNo')
     consentToShare = request.form.get('consent')
 
-    verified =  "yes" if travelAgency == 'expedia' else  "no"
+    verified = "yes" if travelAgency == 'expedia' else "no"
 
     file = request.files['file']
     filename = secure_filename(file.filename)
-    filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename.split(".")[0]+'_' +emailId +"."+ filename.split(".")[1])
+    filePath = os.path.join(app.config['UPLOAD_FOLDER'],
+                            filename.split(".")[0] + '_' + emailId + "." + filename.split(".")[1])
     file.save(filePath)
-
 
     post = db.session.query(Posts).filter_by(postId=postId).first()
 
@@ -307,6 +303,7 @@ def getInsight(primaryEmail, newAttachments):
 
     return message
 
+
 def getScoreFromaAttachments(primaryEmail, newAttachments):
     isPrimaryCustomerUploaded = False
 
@@ -327,7 +324,7 @@ def getScoreFromaAttachments(primaryEmail, newAttachments):
 
     score = 0
     if isPrimaryCustomerUploaded:
-        score +=1
+        score += 1
         if memberUploadedCount > 1:
             score += 1
     elif memberUploadedCount > 0:
@@ -340,9 +337,9 @@ def getScoreFromaAttachments(primaryEmail, newAttachments):
     return score
 
 
-
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
+
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
@@ -352,4 +349,3 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
 if __name__ == '__main__':
     app.run(debug=True)
-

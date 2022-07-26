@@ -16,29 +16,18 @@
   <div class="container-fluid">
 
     <ul class="nav navbar-nav">
-      <li><a href={{url_for('route_user_home')}}><img id="logo1" src="static/travelco_logo_2.png" style = "height: 80px;width: auto;"></a></li>
-
+      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 40px;width: auto"></a></li>
     </ul>
 
-    <ul class="nav navbar-right">
-      <li class="active"><a href="https://www.expedia.com"><img id="logo" src="static/expedia_logo.png" style = "height: 80px;width: auto;"></a></li>
-
-    </ul>
-
-    <ul class="nav navbar-right">
-
-        <li><a href={{ url_for('route_user_home_page', emailId = emailId) }}><span class="glyphicon glyphicon-home" ></span> Home </a></li>
-
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user" ></span> {{name}}
-                </button>
-                      <ul class="dropdown-menu">
-                        <li><a href={{url_for('route_search_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-search" ></span> Search activities </a></li>
-                         <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Post activities </a></li>
-                         <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own activities </a></li>
-                       </ul>
-        </div>
-
+      <ul class="nav navbar-right">
+        <a href={{ url_for('route_user_home_page', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
+        <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-top:20px" class="glyphicon glyphicon-envelope"></i>
+        <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-bell"></i>
+        <i data-toggle="dropdown" style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-right:40px" class="glyphicon glyphicon-user"></i>
+        <ul class="dropdown-menu">
+            <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
+            <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own trips </a></li>
+        </ul>
     </ul>
 
 
