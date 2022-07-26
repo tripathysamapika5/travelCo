@@ -41,7 +41,7 @@ def route_login():
         actualPassword = db.session.query(Users).filter_by(email=emailId)[0].__dict__.get('password')
 
         if (actualPassword == password):
-            return redirect(url_for('route_user_home_page', emailId=emailId))
+            return redirect(url_for('route_plan_your_trip', emailId=emailId))
         else:
             return render_template('login.html', errorMessage="Login Failed !!!")
 
@@ -77,6 +77,105 @@ def route_user_home_page():
         newActivities.append(newActivity)
 
     return render_template('user_home_page.html', name=name, activities=newActivities, emailId=emailId)
+
+
+@app.route('/plan-your-trip', methods=['GET', 'POST'])
+def route_plan_your_trip():
+    print("values",request.args )
+    print("values",request.form )
+    emailId = request.args.get('emailId')
+
+    name = db.session.query(Users).filter_by(email=emailId)[0].__dict__.get('name')
+    activities = db.session.query(Posts).all()
+
+
+    newActivities = []
+
+    if (request.args.get('toLocation') is not None):
+        tripStartDate = request.args.get('tripStartDate')
+        tripEndDate = request.args.get('tripEndDate')
+        fromLocation = request.args.get('fromLocation')
+        toLocation = request.args.get('toLocation')
+        activities = request.args.getlist('plannedActivity')
+        ageGroup = request.args.get('ageGroup')
+
+        print(tripStartDate, tripEndDate, fromLocation, toLocation, activities)
+
+        posts = db.session.query(Posts).all()
+
+        newPosts = []
+
+        for post in posts:
+            newPost = vars(post)
+            newPost['activities'] = json.loads(newPost.get('activities'))
+            newPost['memberEmails'] = list(set(json.loads(newPost.get('memberEmails'))))
+            del newPost['_sa_instance_state']
+            newPost['groupSize'] = len(newPost.get('memberEmails')) + 1
+            newPost['isPrimary'] = newPost.get('primaryEmail') == emailId
+            newPost['isMember'] = emailId in newPost['memberEmails']
+            newPost['isNonMember'] = newPost['isPrimary'] == False and newPost['isMember'] == False
+            newPost['attachments'] = json.loads(newPost.get('attachments'))
+
+
+            newPost['userMembers'] = eval(newPost.get('userMembers'))
+            msg1 = getInsightFromUserMebers(newPost['userMembers'] )
+            newPost['message1'] = msg1
+
+            newAttachments = newPost.get('attachments')
+
+            message = getInsight(newPost.get('primaryEmail'), newAttachments)
+
+            newPost['message'] = message
+
+            totalScore = 8 + 3 + len(newPost['activities']) + 1
+
+            score = getScoreFromaAttachments(newPost.get('primaryEmail'), newAttachments)
+
+            delta = datetime.strptime(tripStartDate, '%Y-%m-%d').date() - datetime.strptime(
+                newPost.get('tripStartDate'), '%Y-%m-%d').date()
+            if abs(delta.days) <= 15:
+                score += 1
+
+            if toLocation == newPost.get('destinationLocation'):
+                score += 1
+
+            if fromLocation == newPost.get('fromLocation'):
+                score += 1
+
+            if newPost['groupSize'] > 1:
+                score += 1
+
+            for activity in activities:
+                if activity in newPost['activities']:
+                    score += 1
+            if toLocation == newPost.get('destinationLocation') and score > 0:
+                newPost['score'] = round(score * 5 / totalScore, 1)
+                newPosts.append(newPost)
+        finalPosts = sorted(newPosts, key=lambda x: x['score'], reverse=True)
+        return render_template('plan_trip.html', emailId=emailId, name=name, activities=finalPosts)
+
+    else:
+        for activity in activities:
+            newActivity = vars(activity)
+            newActivity['activities'] = json.loads(newActivity.get('activities'))
+            newActivity['memberEmails'] = list(set(json.loads(newActivity.get('memberEmails'))))
+            del newActivity['_sa_instance_state']
+            newActivity['groupSize'] = len(newActivity.get('memberEmails')) + 1
+            newActivity['isPrimary'] = newActivity.get('primaryEmail') == emailId
+            newActivity['isMember'] = emailId in newActivity['memberEmails']
+            newActivity['isNonMember'] = newActivity['isPrimary'] == False and newActivity['isMember'] == False
+            newActivity['attachments'] = json.loads(newActivity.get('attachments'))
+            newActivity['userMembers'] = newActivity.get('userMembers')
+
+            newAttachments = newActivity.get('attachments')
+
+            message = getInsight(newActivity.get('primaryEmail'), newAttachments)
+
+            newActivity['message'] = message
+
+            newActivities.append(newActivity)
+
+        return render_template('plan_trip.html', name=name, activities=newActivities, emailId=emailId)
 
 
 @app.route('/join-group', methods=['GET', 'POST'])
@@ -136,8 +235,13 @@ def route_post_activity():
         fromLocation = request.args.get('fromLocation')
         toLocation = request.args.get('toLocation')
         activities = json.dumps(request.args.getlist('plannedActivity'))
+        vaccinationStatus = request.args.get('userMemberVaccine')
+        gender = request.args.get('userMembers')
+        ageGroup = request.args.get('userMember')
+        userMembers = list()
+        userMembers.append((gender,ageGroup, vaccinationStatus))
 
-        db.session.add(Posts(tripName, activities, tripStartDate, tripEndDate, fromLocation, toLocation, emailId));
+        db.session.add( Posts( tripName,activities, tripStartDate, tripEndDate, fromLocation, toLocation, emailId, str(userMembers)));
         db.session.commit();
 
         return render_template('post_activity.html', emailId=emailId, name=personName,
@@ -298,7 +402,7 @@ def getInsight(primaryEmail, newAttachments):
         message += str(memberUploadedCount) + "member(s) uploaded tickets"
 
     if message != "":
-        message += " for " + ", ".join(attachmentTypes) + ".\nSo " + str(
+        message += " for " + ", ".join(attachmentTypes) + ".So " + str(
             verifiedCount) + " tickets are verified by expedia out of " + str(totalTickets) + "."
 
     return message
@@ -340,6 +444,15 @@ def getScoreFromaAttachments(primaryEmail, newAttachments):
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
 
+def getInsightFromUserMebers(userMembers ):
+    vaccinationCount  = 0
+    for gender,ageGroup,vaccinationInd in userMembers:
+        if vaccinationInd == 'Yes':
+            vaccinationCount += 1
+    if  vaccinationCount > 0:
+        message1 = str(vaccinationCount) +"members are vaccinated"
+
+
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
@@ -348,4 +461,5 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app,debug=True)
+    #socketio.stop()

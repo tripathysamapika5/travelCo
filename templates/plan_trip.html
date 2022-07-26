@@ -113,6 +113,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     </ul>
 
     <ul class="nav navbar-right">
+        <a href={{url_for('route_post_activity', emailId = emailId)  }}>Create a Group</a>
         <a href={{ url_for('route_plan_your_trip', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-envelope"></i>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-top:20px" class="glyphicon glyphicon-bell"></i>
@@ -126,12 +127,151 @@ body {font-family: Arial, Helvetica, sans-serif;}
   </div>
 </nav>
 
+
+
+
  <div class="container" >
+
+  <div class="panel panel-primary">
+
+   <div class="panel-body">
+
+
+    <form  method="GET"  enctype="multipart/form-data"  action={{ url_for('route_plan_your_trip', emailId = emailId, name = name)}} >
+
+      <input type="hidden" class="form-control" name= "name" id="name" value = {{ name }}>
+      <input type="hidden" class="form-control" name= "emailId" id="emailId" value = {{ emailId }}>
+
+
+
+
+        <div class="form-row">
+        <div class="form-group  col-md-6">
+
+      <label for="fromLocation">From <span class="glyphicon glyphicon-map-marker" ></span>  </label>
+        <input type="text" class="form-control" name= "fromLocation" id="fromLocation" placeholder="Enter from location">
+        </div>
+            <div class="form-group  col-md-6">
+        <label for="toLocation">To <span class="glyphicon glyphicon-map-marker" ></span>  </label>
+        <input required type="text" class="form-control" name= "toLocation" id="toLocation" placeholder="Enter to location" >
+
+            </div></div>
+
+
+
+
+        <div class="form-row">
+           <div class="form-group  col-md-6">
+               <label for="tripStartDate">Start date <span class="glyphicon glyphicon-calendar" ></span>  </label>
+        <input required type="text" class="form-control" name= "tripStartDate" id="tripStartDate" placeholder="Enter trip start date" >
+        </div>
+
+            <div class="form-group  col-md-6">
+      <label  for="tripEndDate">End date <span class="glyphicon glyphicon-calendar" ></span>  </label>
+        <input type="text" class="form-control" name= "tripEndDate" id="tripEndDate" placeholder="Enter trip end date" required="true">
+        </div>
+        </div>
+
+
+
+<div class="form-group  col-md-6">
+
+          <label  for="ageGroup">Preferred age group <span class="glyphicon glyphicon-calendar" ></span>  </label>
+        <input type="text" class="form-control" name= "ageGroup" id="ageGroup" placeholder="Enter preferred age group" >
+
+</div>
+
+
+
+<div class="form-row">
+    <div class="form-group col-md-12">
+       <div class="form-check"   >
+            <strong>Planned activities</strong><br><br>
+
+           <input class="form-check-input" type="checkbox" id="plannedActivity1" name="plannedActivity" value="shopping">
+            <label class="form-check-label" for="plannedActivity1"> shopping</label>
+            &emsp; &emsp;
+           <input class="form-check-input" type="checkbox" id="plannedActivity2" name="plannedActivity" value="food, drink & nightlife">
+            <label class="form-check-label" for="plannedActivity2"> food, drink & nightlife</label>
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity3" name="plannedActivity" value="gallery and museum">
+            <label for="plannedActivity3"> gallery and museum</label>
+
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity4" name="plannedActivity" value="sightseeing & city tours">
+            <label for="plannedActivity4"> sightseeing & city tours</label>
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity5" name="plannedActivity" value="history & culture">
+            <label for="plannedActivity5"> history & culture</label>
+            &emsp; &emsp; <br>
+           <input type="checkbox" id="plannedActivity6" name="plannedActivity" value="theme park and water activities">
+            <label for="plannedActivity6"> theme park and water activities</label>
+
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity7" name="plannedActivity" value="wildlife & nature">
+            <label for="plannedActivity7"> wildlife & nature</label>
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity8" name="plannedActivity" value="cruises or boat rides">
+            <label for="plannedActivity8"> cruises or boat rides</label>
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity9" name="plannedActivity" value="adventure">
+            <label for="plannedActivity9"> adventure</label>
+
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity10" name="plannedActivity" value="spa & wellness">
+            <label for="plannedActivity10"> spa & wellness</label>
+
+             &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity11" name="plannedActivity" value="hiking & camping">
+            <label for="plannedActivity11"> hiking & camping</label><br>
+
+
+           <input type="checkbox" id="plannedActivity12" name="plannedActivity" value="movies, shows or concerts">
+            <label for="plannedActivity12"> movies, shows or concerts</label>
+
+            &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity13" name="plannedActivity" value="road trip">
+            <label for="plannedActivity13"> road trip</label>
+
+           &emsp; &emsp;
+           <input type="checkbox" id="plannedActivity14" name="plannedActivity" value="pilgrimage">
+            <label for="plannedActivity14"> Pilgrimage</label><br>
+
+
+        </div>
+        </div></div>
+
+
+
+
+
+
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-8">
+       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn btn-primary">Search</button>
+
+
+      </div>
+    </div>
+
+
+  </form>
+
+  </div>
+   </div></div>
+
+
+
+
   <div class="container" style ="width : 800px;">
 
 
+
   <div class="alert alert-info">
-      <strong>All Upcoming Trips !!!</strong>
+
+      <strong>Upcoming Trips !!!</strong>
   </div>
 
 
@@ -159,6 +299,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </ul>
 
 
+
+                 <ul class="nav nav-pills nav-stacked">
+                  <li role="presentation"><a href="#">Members : (Gender, Age Group, Vaccination Status)  <span class="glyphicon glyphicon-user" ></span> : {{ activity.get('userMembers') }} </a></li>
+                </ul>
+
+
                 <ul class="nav nav-pills">
                   <li role="presentation"><a href="#">Activities </a></li>
                 </ul>
@@ -170,13 +316,27 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     </ol>
                     </div>
 
-              {% if activity.get('message') != ""  %}
+
+
+              {% if activity.get('message') != None and  activity.get('message') != ""   %}
             <ul class="nav nav-pills" >
                   <li role="presentation"><a href="#"><span class="glyphicon glyphicon-info-sign" ></span>&nbsp;&nbsp;<strong style="color:orange;">{{ activity.get('message') }}</strong> </a></li>
                 </ul>
 
             {% endif %}
 
+              {% if activity.get('message1') != "" and activity.get('message1') != None %}
+            <ul class="nav nav-pills" >
+                  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-info-sign" ></span>&nbsp;&nbsp;<strong style="color:orange;">{{ activity.get('message1') }}</strong> </a></li>
+                </ul>
+
+            {% endif %}
+
+            {% if activity.get('score') != 0 and  activity.get('score') !=  None %}
+            <ul class="nav nav-pills" >
+                  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-info-sign" ></span>&nbsp;&nbsp;<strong style="color:orange;">Matching score : {{ activity.get('score') }}/5</strong> </a></li>
+                </ul>
+            {% endif %}
 
 
               {% if activity.get('isNonMember')  %}
@@ -191,11 +351,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
              </div>
                    {% if activity.get('groupSize') > 1 %}
 
-                  <p align = right ><a ><button type="button" class="btn btn-primary active" onclick="openForm()">Chat</button></a></p>
 
                         <div class="chat-popup" id="myForm">
 
-                          <form action="" class="form-container" method="POST">
+                          <form action="1" class="form-container" method="POST">
                             <h1>Chat</h1>
                               <div class = "panel panel-default" >
                                     <div class="panel-heading">
@@ -228,7 +387,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <strong>You have joined this group!</strong>
              </div>
 
-                  <p align = right ><a ><button type="button" class="btn btn-primary active" onclick="openForm()">Chat</button></a></p>
 
                         <div class="chat-popup" id="myForm">
 
@@ -272,57 +430,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- List group -->
 
 </div>
-
-
-                        <script>
-                        function openForm() {
-                          document.getElementById("myForm").style.display = "block";
-                        }
-
-                        function closeForm() {
-                          document.getElementById("myForm").style.display = "none";
-                        }
-                           var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-                          socket.on( 'connect', function() {
-                            socket.emit( 'my event', {
-                              data: 'User Connected'
-                            } )
-
-                              socket.emit( 'my event', {
-                              user_name: 'Chatbot',
-                                  message : '<p>Hello Everyone! <br>Links to book tickets: ' +
-                                      '<a href="https://www.expedia.com/Hotels">Hotel</a> ' +
-                                      '<a href="https://www.expedia.com/Flights">Flight</a> ' +
-                                      '<a href="https://www.expedia.com/Cars">Car</a> ' +
-                                      '<a href="https://www.expedia.com/Activities">Activity</a> ' +
-                                      '</p>'
-                              } )
-
-
-                            var form = $( 'form' ).on( 'submit', function( e ) {
-                              e.preventDefault()
-                              let user_name = $( 'input.username' ).val()
-                              let user_input = $( 'textarea.message' ).val()
-                              socket.emit( 'my event', {
-                                user_name : user_name,
-                                message : user_input
-                              } )
-                              $( 'textarea.message' ).val( '' ).focus()
-                            } )
-                          }
-
-
-
-                          )
-                          socket.on( 'my response', function( msg ) {
-                            console.log( msg )
-                            if( typeof msg.user_name !== 'undefined' ) {
-                              $( 'h3' ).remove()
-                              $( 'div.message_holder' ).append( '<div><b style="color: green">'+msg.user_name+': </b> '+msg.message+'</div>' )
-                            }
-                          })
-                        </script>
 
 
 

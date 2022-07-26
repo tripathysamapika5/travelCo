@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="../static/uploads/style.css">
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
 </head>
   <body style="background-color:White; -webkit-background-size: cover;">
 
@@ -20,12 +26,12 @@
     </ul>
 
       <ul class="nav navbar-right">
-        <a href={{ url_for('route_user_home_page', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
+        <a href={{ url_for('route_plan_your_trip', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-top:20px" class="glyphicon glyphicon-envelope"></i>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-bell"></i>
         <i data-toggle="dropdown" style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-right:40px" class="glyphicon glyphicon-user"></i>
         <ul class="dropdown-menu">
-            <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
+            <li><a href={{ url_for('route_plan_your_trip', emailId = emailId) }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
             <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own trips </a></li>
         </ul>
     </ul>
@@ -83,6 +89,55 @@
         <input type="text" class="form-control" name= "tripEndDate" id="tripEndDate" placeholder="Enter trip end date" required>
       </div>
     </div>
+
+      <! WIP>
+
+  <div class="form-group">
+      <label class="control-label col-sm-2" for="addMembers">Add Members </label>
+      <div id="survey_options">
+        <select class="form-select" id = "gender" name = "userMembers">
+  <option selected>Gender</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Any">Any</option>
+</select>
+
+        <select class="form-select" id = "ageGroup" name = "userMember">
+  <option selected>Age Group</option>
+<option value="0-5">0-5</option>
+<option value="6-10">6-10</option>
+  <option value="11-15">11-15</option>
+  <option value="16-20">16-20</option>
+  <option value="21-25">21-25</option>
+<option value="26-30">26-30</option>
+  <option value="31-35">31-35</option>
+  <option value="36-40">36-40</option>
+  <option value="41-45">41-45</option>
+  <option value="46-50">46-50</option>
+  <option value="51-55">51-55</option>
+<option value="56-60">56-60</option>
+  <option value="61-65">61-65</option>
+  <option value="66-70">66-70</option>
+  <option value="71-75">71-75</option>
+  <option value="76-80">76-80</option>
+  <option value="81-85">81-85</option>
+<option value="85+">85+</option>
+</select>
+
+           <select class="form-select" id = "vaccination" name = "userMemberVaccine">
+  <option selected>Vaccination Status</option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
+    </div>
+    <div class="controls">
+      <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+      <a href="#" id="remove_fields"><i class="fa fa-minus"></i>Remove Field</a>
+    </div>
+  </div>
+<script src="static/uploads/script.js"></script>
+
+
 
 
     <div class="form-group">

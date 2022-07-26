@@ -28,8 +28,10 @@ class Posts(db.Model):
     primaryEmail = db.Column(db.String)
     memberEmails = db.Column(db.String)
     attachments = db.Column(db.String)
+    userMembers = db.Column(db.String)
 
-    def __init__(self, name, activities, tripStartDate, tripEndDate, fromLocation, destinationLocation, primaryEmail) :
+
+    def __init__(self, name, activities, tripStartDate, tripEndDate, fromLocation, destinationLocation, primaryEmail, userMembers) :
         self.name = name
         self.activities = activities
         self.tripStartDate = tripStartDate
@@ -39,6 +41,7 @@ class Posts(db.Model):
         self.primaryEmail = primaryEmail
         self.memberEmails ="[]"
         self.attachments = "{}"
+        self.userMembers = userMembers
 
 class modelService:
 
@@ -115,6 +118,8 @@ class modelService:
                       ,"Delhi"
                       ,"Hyderabad"
                       ,"satripathy@expediagroup.com"
+                      ,'[("Male", "20-25", "Yes"), ("Female", "26-30", "Yes")]'
+
                       )
             )
             db.session.commit()
@@ -130,6 +135,8 @@ class modelService:
                       ,"Bangalore"
                       ,"Mysuru"
                       ,"shubhkumar@expediagroup.com"
+                      , '[("Male", "20-25","No"), ("Female", "26-30", "Yes")]'
+
                       )
             )
             db.session.commit()
@@ -145,6 +152,8 @@ class modelService:
                       ,"Bangalore"
                       ,"ooty"
                       ,"asmakhan@expediagroup.com"
+                      , '[("Male", "20-25", "Yes"), ("Female", "26-30", "Yes")]'
+
                       )
             )
             db.session.commit()

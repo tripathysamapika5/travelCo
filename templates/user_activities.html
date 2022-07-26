@@ -115,12 +115,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
     </ul>
 
     <ul class="nav navbar-right">
-        <a href={{ url_for('route_user_home_page', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
+        <a href={{ url_for('route_plan_your_trip', emailId = emailId) }}><i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-home"></i></a>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px" class="glyphicon glyphicon-envelope"></i>
         <i style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-top:20px" class="glyphicon glyphicon-bell"></i>
         <i data-toggle="dropdown" style="font-size:24px;color:-moz-mac-chrome-active;padding-left:20px;padding-right:40px" class="glyphicon glyphicon-user"></i>
         <ul class="dropdown-menu">
-            <li><a href={{url_for('route_post_activity', emailId = emailId)  }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
+            <li><a href={{ url_for('route_plan_your_trip', emailId = emailId) }}><span class="glyphicon glyphicon-send" ></span> Plan your trip </a></li>
             <li><a href={{ url_for('route_user_activities', emailId = emailId) }}><span class="glyphicon glyphicon-eye-open"></span> View own trips </a></li>
         </ul>
     </ul>
@@ -159,6 +159,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   <li role="presentation"><a href="#">Members  <span class="glyphicon glyphicon-user" ></span> : {{ activity.get('groupSize') }}</a></li>
                 </ul>
 
+
+
+               <ul class="nav nav-pills nav-stacked">
+                  <li role="presentation"><a href="#">Members : (Gender, Age Group, Vaccination Status)  <span class="glyphicon glyphicon-user" ></span> : {{ activity.get('userMembers') }} </a></li>
+                </ul>
 
                 <ul class="nav nav-pills">
                   <li role="presentation"><a href="#">Activities </a></li>
