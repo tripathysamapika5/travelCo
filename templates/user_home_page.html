@@ -30,16 +30,29 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none;
   position: fixed;
   bottom: 0;
-  right: 15px;
+  right: 30px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  width: 500px
+}
+
+.message_holder{
+    height : 100%;
+    height : 200px;
+    max-height: 200px;
+    overflow-y: scroll;
+    position: relative;
+
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
+  max-width: 500px;
   padding: 10px;
   background-color: white;
+  min-height: 50px;
+
+
 }
 
 /* Full-width textarea */
@@ -50,7 +63,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   border: none;
   background: #f1f1f1;
   resize: none;
-  min-height: 200px;
+  height: 5px;
 }
 
 /* When the textarea gets focus, do something */
@@ -191,9 +204,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                           <form action="" class="form-container" method="POST">
                             <h1>Chat</h1>
-                              <div class = "panel panel-default">
+                              <div class = "panel panel-default" >
                                     <div class="panel-heading">
-                                        <div class="panel-body">
+                                        <div class="panel-body " >
                                     <div class="message_holder"></div>
                                     </div>
                                         </div>
@@ -203,9 +216,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               <input type="hidden" class="username" placeholder="User Name" value={{ name }}>
 
                               <label for="msg"><b>Message</b></label>
-                              <br>
-                              <input type="text" class="form-control-plaintext message"  name="message" placeholder="Type message.." id="msg" required>
-
+                                <textarea class="form-control message"  name="message"  id="comment" placeholder="Type message.." id="msg" required></textarea>
 
 
                             <button type="submit" class="btn">Send</button>
@@ -232,8 +243,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             <h1>Chat</h1>
                               <div class = "panel panel-default">
                                     <div class="panel-heading">
-                                        <div class="panel-body">
-                                    <div class="message_holder"></div>
+                                        <div class="panel-body ">
+                                    <div class="message_holder" ></div>
                                     </div>
                                         </div>
 
@@ -242,15 +253,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               <input type="hidden" class="username" placeholder="User Name" value={{ name }}>
 
                               <label for="msg"><b>Message</b></label>
-                              <br>
-                              <input type="text" class="form-control-plaintext message"  name="message" placeholder="Type message.." id="msg" required>
-
+                                <textarea class="form-control message"  name="message"  id="comment" placeholder="Type message.." id="msg" required></textarea>
 
 
                             <button type="submit" class="btn">Send</button>
                             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                           </form>
                         </div>
+
 
                {% endif %}
 
@@ -285,22 +295,38 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             socket.emit( 'my event', {
                               data: 'User Connected'
                             } )
+
+                              socket.emit( 'my event', {
+                              user_name: 'Chatbot',
+                                  message : '<p>Hello Everyone! <br>You can book your itineraries by clicking on below links ' +
+                                      '<br><a href="https://www.expedia.com/Hotels">Hotels</a> ' +
+                                      '<a href="https://www.expedia.com/Flights">Flights</a> ' +
+                                      '<a href="https://www.expedia.com/Cars">Cars</a> ' +
+                                      '<a href="https://www.expedia.com/Activities">Activities</a> ' +
+                                      '</p>'
+                              } )
+
+
                             var form = $( 'form' ).on( 'submit', function( e ) {
                               e.preventDefault()
                               let user_name = $( 'input.username' ).val()
-                              let user_input = $( 'input.message' ).val()
+                              let user_input = $( 'textarea.message' ).val()
                               socket.emit( 'my event', {
                                 user_name : user_name,
                                 message : user_input
                               } )
-                              $( 'input.message' ).val( '' ).focus()
+                              $( 'textarea.message' ).val( '' ).focus()
                             } )
-                          } )
+                          }
+
+
+
+                          )
                           socket.on( 'my response', function( msg ) {
                             console.log( msg )
                             if( typeof msg.user_name !== 'undefined' ) {
                               $( 'h3' ).remove()
-                              $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+': </b> '+msg.message+'</div>' )
+                              $( 'div.message_holder' ).append( '<div><b style="color: green">'+msg.user_name+': </b> '+msg.message+'</div>' )
                             }
                           })
                         </script>
