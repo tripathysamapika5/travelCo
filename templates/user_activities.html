@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-         <style>
+   <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
@@ -30,9 +30,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none;
   position: fixed;
   bottom: 0;
-  right: 15px;
+  right: 30px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  width: 300px;
 }
 
 /* Add styles to the form container */
@@ -40,6 +41,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   max-width: 300px;
   padding: 10px;
   background-color: white;
+  min-height: 50px;
 }
 
 /* Full-width textarea */
@@ -50,7 +52,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   border: none;
   background: #f1f1f1;
   resize: none;
-  min-height: 200px;
+  height: 5px;
 }
 
 /* When the textarea gets focus, do something */
@@ -189,15 +191,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
               {% if activity.get('groupSize') > 1 %}
 
-
                         <div class="chat-popup" id="myForm">
 
                           <form action="" class="form-container" method="POST">
                             <h1>Chat</h1>
                               <div class = "panel panel-default">
                                     <div class="panel-heading">
-                                        <div class="panel-body">
-                                    <div class="message_holder"></div>
+                                        <div class="panel-body ">
+                                    <div class="message_holder" style = "height: 100px;"></div>
                                     </div>
                                         </div>
 
@@ -206,15 +207,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               <input type="hidden" class="username" placeholder="User Name" value={{ name }}>
 
                               <label for="msg"><b>Message</b></label>
-                              <br>
-                              <input type="text" class="form-control-plaintext message"  name="message" placeholder="Type message.." id="msg" required>
-
+                                <textarea class="form-control message"  name="message"  id="comment" placeholder="Type message.." id="msg" required></textarea>
 
 
                             <button type="submit" class="btn">Send</button>
                             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                           </form>
                         </div>
+
 
 
               {% endif %}
@@ -267,12 +267,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             var form = $( 'form' ).on( 'submit', function( e ) {
                               e.preventDefault()
                               let user_name = $( 'input.username' ).val()
-                              let user_input = $( 'input.message' ).val()
+                              let user_input = $( 'textarea.message' ).val()
                               socket.emit( 'my event', {
                                 user_name : user_name,
                                 message : user_input
                               } )
-                              $( 'input.message' ).val( '' ).focus()
+                              $( 'textarea.message' ).val( '' ).focus()
                             } )
                           } )
                           socket.on( 'my response', function( msg ) {
