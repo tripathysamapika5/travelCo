@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
   <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -30,16 +31,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none;
   position: fixed;
   bottom: 0;
-  right: 30px;
-  border: 3px solid #f1f1f1;
+  right: 20px;
+  border: 1px solid #f1f1f1;
   z-index: 9;
-  width: 500px
+  width: 400px
 }
 
 .message_holder{
     height : 100%;
-    height : 200px;
-    max-height: 200px;
+    height : 150px;
+    max-height: 150px;
     overflow-y: scroll;
     position: relative;
 
@@ -47,7 +48,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 500px;
+  max-width: 400px;
   padding: 10px;
   background-color: white;
   min-height: 50px;
@@ -135,11 +136,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </nav>
 
  <div class="container">
-  <div class="container">
+  <div class="container"  style ="width : 800px;">
 
       {% if  activities != [] %}
         <div class="alert alert-info">
-          <strong><h3>Searched Results!!!</h3></strong>
+          <strong>Searched Results!!!</strong>
         </div>
       {% endif %}
 
@@ -148,7 +149,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     {% for activity in activities %}
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title">{{ activity.get('name') }}</h3>
+                {{ activity.get('name') }}
               </div>
               <div class="panel-body">
                   <p>
@@ -173,7 +174,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   <li role="presentation"><a href="#">Activities </a></li>
                 </ul>
                     <div class="container">
-                    <ol class="nav nav-pills nav-stacked">
+                    <ol class="nav nav-pills"  style ="width : 800px;">
                          {% for plannedActivity in activity.get('activities') %}
                                 <li role="presentation"><a href="#"> <span class="glyphicon glyphicon-tag" ></span> {{ plannedActivity}} </a></li>
                            {% endfor %}
@@ -304,7 +305,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
-                        <script>
+                         <script>
                         function openForm() {
                           document.getElementById("myForm").style.display = "block";
                         }
@@ -321,11 +322,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                               socket.emit( 'my event', {
                               user_name: 'Chatbot',
-                                  message : '<p>Hello Everyone! <br>You can book your itineraries by clicking on below links ' +
-                                      '<br><a href="https://www.expedia.com/Hotels">Hotels</a> ' +
-                                      '<a href="https://www.expedia.com/Flights">Flights</a> ' +
-                                      '<a href="https://www.expedia.com/Cars">Cars</a> ' +
-                                      '<a href="https://www.expedia.com/Activities">Activities</a> ' +
+                                  message : '<p>Hello Everyone! <br>Links to book tickets: ' +
+                                      '<a href="https://www.expedia.com/Hotels">Hotel</a> ' +
+                                      '<a href="https://www.expedia.com/Flights">Flight</a> ' +
+                                      '<a href="https://www.expedia.com/Cars">Car</a> ' +
+                                      '<a href="https://www.expedia.com/Activities">Activity</a> ' +
                                       '</p>'
                               } )
 
