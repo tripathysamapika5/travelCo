@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
+  <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
@@ -33,15 +33,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
   right: 30px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-  width: 300px;
+  width: 500px
+}
+
+.message_holder{
+    height : 100%;
+    height : 200px;
+    max-height: 200px;
+    overflow-y: scroll;
+    position: relative;
+
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
+  max-width: 500px;
   padding: 10px;
   background-color: white;
   min-height: 50px;
+
+
 }
 
 /* Full-width textarea */
@@ -83,7 +94,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
   opacity: 1;
 }
 </style>
-
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -199,14 +209,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   <p align = right ><a ><button type="button" class="btn btn-primary active" onclick="openForm()">Chat</button></a></p>
 
 
-                        <div class="chat-popup" id="myForm">
+                           <div class="chat-popup" id="myForm">
 
                           <form action="" class="form-container" method="POST">
                             <h1>Chat</h1>
-                              <div class = "panel panel-default">
+                              <div class = "panel panel-default" >
                                     <div class="panel-heading">
-                                        <div class="panel-body ">
-                                    <div class="message_holder" style = "height: 100px;"></div>
+                                        <div class="panel-body " >
+                                    <div class="message_holder"></div>
                                     </div>
                                         </div>
 
@@ -226,6 +236,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
+
               {% endif %}
 
               {% endif %}
@@ -239,14 +250,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                  <p align = right ><a ><button type="button" class="btn btn-primary active" onclick="openForm()">Chat</button></a></p>
 
 
-                        <div class="chat-popup" id="myForm">
+                         <div class="chat-popup" id="myForm">
 
                           <form action="" class="form-container" method="POST">
                             <h1>Chat</h1>
-                              <div class = "panel panel-default">
+                              <div class = "panel panel-default" >
                                     <div class="panel-heading">
-                                        <div class="panel-body ">
-                                    <div class="message_holder" style = "height: 100px;"></div>
+                                        <div class="panel-body " >
+                                    <div class="message_holder"></div>
                                     </div>
                                         </div>
 
@@ -292,6 +303,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
+
                         <script>
                         function openForm() {
                           document.getElementById("myForm").style.display = "block";
@@ -306,6 +318,18 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             socket.emit( 'my event', {
                               data: 'User Connected'
                             } )
+
+                              socket.emit( 'my event', {
+                              user_name: 'Chatbot',
+                                  message : '<p>Hello Everyone! <br>You can book your itineraries by clicking on below links ' +
+                                      '<br><a href="https://www.expedia.com/Hotels">Hotels</a> ' +
+                                      '<a href="https://www.expedia.com/Flights">Flights</a> ' +
+                                      '<a href="https://www.expedia.com/Cars">Cars</a> ' +
+                                      '<a href="https://www.expedia.com/Activities">Activities</a> ' +
+                                      '</p>'
+                              } )
+
+
                             var form = $( 'form' ).on( 'submit', function( e ) {
                               e.preventDefault()
                               let user_name = $( 'input.username' ).val()
@@ -316,15 +340,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
                               } )
                               $( 'textarea.message' ).val( '' ).focus()
                             } )
-                          } )
+                          }
+
+
+
+                          )
                           socket.on( 'my response', function( msg ) {
                             console.log( msg )
                             if( typeof msg.user_name !== 'undefined' ) {
                               $( 'h3' ).remove()
-                              $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+': </b> '+msg.message+'</div>' )
+                              $( 'div.message_holder' ).append( '<div><b style="color: green">'+msg.user_name+': </b> '+msg.message+'</div>' )
                             }
                           })
                         </script>
+
 
 
 
